@@ -46,7 +46,6 @@ public class HttpInboundServer {
 
             b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO)).childHandler(new HttpInboundInitializer(this.proxyServer))
-//                    .childHandler(new OkhttpOutboundHandler(this.proxyServer))
             ;
 
             Channel ch = b.bind(port).sync().channel();
