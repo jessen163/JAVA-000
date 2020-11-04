@@ -55,13 +55,16 @@ public class OkhttpOutboundHandler extends ChannelInboundHandlerAdapter {
 
         String proxyServer = diyHttpEndpointRouter.route(Arrays.asList(proxyServerArr));
         Request request = new Request.Builder().url(proxyServer+uri).build();
+        Response response = null;
         try {
-            Response response = client.newCall(request).execute();
+            response = client.newCall(request).execute();
             if (response.code() == 200) {
                 System.out.println(response.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            response.body().close();
         }
     }
 }

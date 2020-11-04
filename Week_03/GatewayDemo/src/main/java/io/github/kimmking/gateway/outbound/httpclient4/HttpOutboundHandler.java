@@ -31,7 +31,7 @@ public class HttpOutboundHandler {
     
     public HttpOutboundHandler(String backendUrl){
         this.backendUrl = backendUrl.endsWith("/")?backendUrl.substring(0,backendUrl.length()-1):backendUrl;
-        int cores = Runtime.getRuntime().availableProcessors() * 2;
+        int cores = Runtime.getRuntime().availableProcessors() * 3;
         long keepAliveTime = 1000;
         int queueSize = 2048;
         RejectedExecutionHandler handler = new ThreadPoolExecutor.CallerRunsPolicy();//.DiscardPolicy();
