@@ -3,6 +3,7 @@ package io.github.kimmking.gateway.outbound.okhttp;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import io.github.kimmking.gateway.filter.DiyHttpRequestFilter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -16,9 +17,11 @@ public class OkhttpOutboundHandler extends ChannelInboundHandlerAdapter {
 
     private static Logger logger = LoggerFactory.getLogger(OkhttpOutboundHandler.class);
     private String proxyServer;
+    private DiyHttpRequestFilter diyHttpRequestFilter;
 
     public OkhttpOutboundHandler(String proxyServer) {
         this.proxyServer = proxyServer;
+        diyHttpRequestFilter = new DiyHttpRequestFilter();
     }
 
     @Override
@@ -37,6 +40,7 @@ public class OkhttpOutboundHandler extends ChannelInboundHandlerAdapter {
             FullHttpRequest fullRequest = (FullHttpRequest) msg;
             uri = fullRequest.uri();
             System.out.println("uri:" + uri);
+            diyHttpRequestFilter.filter(fullRequest, ctx);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
