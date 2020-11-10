@@ -2,11 +2,15 @@ package com.jessen.demo;
 
 import java.util.concurrent.Callable;
 
+/**
+ * Callable
+ */
 public class ThreadDemo1 {
     public static void main(String[] args) throws Exception {
         // 在这里创建一个线程或线程池，
         // 异步执行 下面方法
         Callable<Integer> callable = new Callable<Integer>() {
+            @Override
             public Integer call() throws Exception {
                 long start=System.currentTimeMillis();
                 int result = sum(); //这是得到的返回值

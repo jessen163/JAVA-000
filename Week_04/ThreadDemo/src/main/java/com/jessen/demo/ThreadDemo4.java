@@ -2,6 +2,9 @@ package com.jessen.demo;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * CompletableFuture
+ */
 public class ThreadDemo4 {
     public static void main(String[] args) throws Exception {
         // 异步执行 下面方法

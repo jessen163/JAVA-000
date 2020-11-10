@@ -6,12 +6,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * ExecutorService Future
+ */
 public class ThreadDemo2 {
     public static void main(String[] args) throws Exception {
         // 在这里创建一个线程或线程池，
         ExecutorService executor = Executors.newCachedThreadPool();
         // 异步执行 下面方法
         Future<Integer> result = executor.submit(new Callable<Integer>() {
+            @Override
             public Integer call() throws Exception {
                 long start=System.currentTimeMillis();
                 int result = sum(); //这是得到的返回值

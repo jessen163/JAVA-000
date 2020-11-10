@@ -2,10 +2,14 @@ package com.jessen.demo;
 
 import java.util.concurrent.*;
 
+/**
+ * FutureTask方式
+ */
 public class ThreadDemo3 {
     public static void main(String[] args) throws Exception {
         // 异步执行 下面方法
         FutureTask<Integer> result = new FutureTask<Integer>(new Callable<Integer>() {
+            @Override
             public Integer call() throws Exception {
                 long start=System.currentTimeMillis();
                 int result = sum(); //这是得到的返回值
