@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="question1" class="com.jessen.demo.Question" scope="singleton"/>
+
+    <bean id="question2" class="com.jessen.demo.Question" scope="prototype"/>
+
+    <bean id="question3" class="com.jessen.demo.QuestionFactory" factory-method="getQuestionFactory" />
+
+    <bean id="questionFactoryV2" class="com.jessen.demo.QuestionFactoryV2" />
+
+    <bean id="question4" factory-bean="questionFactoryV2" factory-method="getQuestionFactory" />
+
+    <bean id="question5" class="com.jessen.demo.QuestionFactoryV3" />
+</beans>
