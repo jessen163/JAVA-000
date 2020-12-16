@@ -34,11 +34,19 @@ public class RpcfxInvoker implements ApplicationContextAware {
         String serviceClass = request.getServiceClass();
 
         // 作业1：改成泛型和反射
+        Class<?> cla = null;
+        try {
+            cla = Class.forName(serviceClass);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            response.setException(new RpcfxException("not found class", e));
+            response.setStatus(false);
+            return response;
+        }
         Object service = resolver.resolve(serviceClass);//this.applicationContext.getBean(serviceClass);
-        this.applicationContext.getBean(serviceClass);
 
         try {
-            Method method = resolveMethodFromClass(service.getClass(), request.getMethod());
+            Method method = resolveMethodFromClass(cla, request.getMethod());
             Object result = method.invoke(service, request.getParams()); // dubbo, fastjson,
             // 两次json序列化能否合并成一个
             response.setResult(JSON.toJSONString(result, SerializerFeature.WriteClassName));
@@ -51,7 +59,7 @@ public class RpcfxInvoker implements ApplicationContextAware {
             // 2.封装一个统一的RpcfxException
             // 客户端也需要判断异常
             e.printStackTrace();
-            response.setException(e);
+            response.setException(new RpcfxException("IllegalAccessException|InvocationTargetException error", e));
             response.setStatus(false);
             return response;
         }
